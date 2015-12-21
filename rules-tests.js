@@ -20,8 +20,8 @@ Tinytest.add('biolog:rules complex rule', function (test) {
             "prop 2": "pink",
             "lev 2": {
                 "prop 3a": "black",
-                "prop 3b": ["yellow", "blue"],
-                arr3: [{prop4a: ["red", "white"]}, {prop4b: ["purple", "gray"]}, {prop4c: ["red", "blue", "green"]}]
+                "prop 3b": ["yellow", "blue"]
+                //arr3: [{prop4a: ["red", "white"]}, {prop4b: ["purple", "gray"]}, {prop4c: ["red", "blue", "green"]}]
             }
         }
     };
@@ -57,5 +57,19 @@ Tinytest.add('biolog:rules complex rule', function (test) {
     ruleTool.buildExpression();
     console.log("Changed expression to: ", ruleTool.rule.expression);
     test.isTrue(ruler.testExpression(ruleTool.rule.expression, complexObj), "No longer expected lev1['lev 2']['prop 3a'] to contain one of: ['red', 'blue', 'green']");
+
+    var falseClause = ruleTool.addClause(clause4);
+    ruleTool.buildExpression();
+    test.isFalse(ruler.testExpression(ruleTool.rule.expression, complexObj), "expected lev1['lev 2']['prop 3a'] to contain one of: ['red', 'blue', 'green']");
+
+    ruleTool.removeClause(falseClause.path);
+    ruleTool.buildExpression();
+    console.log("Changed expression to: ", ruleTool.rule.expression);
+    test.isTrue(ruler.testExpression(ruleTool.rule.expression, complexObj), "No longer expected lev1['lev 2']['prop 3a'] to contain one of: ['red', 'blue', 'green']");
+
+    var clause5 = biolog.RuleUtil.newClause("lev1['lev 2']['prop 3a']", "in", ['black', 'green', 'yellow']);
+    var falseClause = ruleTool.addClause(clause5);
+    ruleTool.buildExpression();
+    test.isTrue(ruler.testExpression(ruleTool.rule.expression, complexObj), "expected lev1['lev 2']['prop 3a'] to contain one of: ['black', 'green', 'yellow']");
 
 });
