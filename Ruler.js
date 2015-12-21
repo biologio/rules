@@ -5,9 +5,12 @@
 //var Jexl = Meteor.npmRequire('jexl');
 //var Future = Meteor.npmRequire('fibers/future');
 
-var Jexl = Npm.require('jexl');
-var Future = Npm.require('fibers/future');
-global.Promise = Npm.require('promise');
+//if (Meteor.isServer()) {
+    var Jexl = Npm.require('jexl');
+    var Future = Npm.require('fibers/future');
+    global.Promise = Npm.require('promise');
+//}
+
 
 //Promise = Npm.require('promise');
 

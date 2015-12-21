@@ -5,10 +5,15 @@
 biolog.RuleUtil = {};
 
 biolog.RuleUtil.newRule = function(tags) {
-    return new biolog.Rule({
+    //return new biolog.Rule({
+    //    tags: tags,
+    //    block: biolog.RuleUtil.newBlock("&&", "block")
+    //});
+
+    return {
         tags: tags,
         block: biolog.RuleUtil.newBlock("&&", "block")
-    });
+    };
 };
 
 biolog.RuleUtil.newBlock = function(conjunction, internalPath) {
