@@ -11,6 +11,12 @@
     global.Promise = Npm.require('promise');
 //}
 
+Jexl.addTransform('isValidAndContainsProperty', function(val, property, id) {
+    if (val.valid <= 0) return false;
+    if (! val.data || ! val.data[property] || ! val.data[property][id]) return false;
+    return true;
+});
+
 
 //Promise = Npm.require('promise');
 

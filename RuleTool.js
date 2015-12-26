@@ -41,7 +41,7 @@ biolog.RuleTool.prototype.getBlocks = function(blocks, blockPath) {
 
 biolog.RuleTool.prototype.addClause = function(clause, blockPath) {
     if (! blockPath) blockPath = "block";
-    //console.log("addClause: add to " + blockPath, clause);
+    console.log("addClause: add to " + blockPath, clause);
     var block = biolog.BiologUtil.getValuePath(this.rule, blockPath);
     var newIndex = block.clauses.length;
     var newPath = blockPath + ".clauses[" + newIndex + "]";
@@ -160,6 +160,13 @@ biolog.RuleTool.prototype.buildClauseExpression = function(clause) {
         //TODO support dates
     }
 
+    if (typeof clause.trueVal != 'undefined' && typeof clause.trueVal != "null") {
+        expr += " ? " + clause.trueVal;
+    }
+
+    if (typeof clause.falseVal != 'undefined' && typeof clause.falseVal != "null") {
+        expr += " : " + clause.falseVal;
+    }
 
     return expr;
 };
