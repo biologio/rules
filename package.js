@@ -12,15 +12,19 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom('1.2.0.1');
+
     api.use([
-            //'reactive-var@1.0.6',
+            'mongo@1.1.3',
+            'minimongo@1.0.10',
+            'meteorhacks:async@1.0.0',
+            'biolog:biolog-core@0.0.1'
+        ],
+        ['client', 'server']);
+
+    api.use([
             'promise@0.5.1',
             'npm-container@1.2.0',
-            'meteorhacks:async@1.0.0',
-            'meteorhacks:npm@1.5.0',
-            //'cosmos:browserify@0.4.0',
-            'biolog:biolog-core@0.0.1'
-            //'biolog:filtrex@0.0.1'
+            'meteorhacks:async@1.0.0'
         ],
         ['server']);
 
@@ -29,10 +33,19 @@ Package.onUse(function(api) {
     //], 'client');
 
     api.addFiles([
-        'RuleUtil.js',
+        'Ruler.js',
         'RuleTool.js',
-        'Ruler.js'
+        'work/UnitsOfMeasure.js',
+        'work/lifestyleQuestions.js',
+        'work/dietQuestions.js'
+    ], ['client', 'server']);
+
+    api.addFiles([
+        'Ruler-js.js',
+        'RuleTool-js.js'
     ], ['server']);
+
+
 
 });
 
@@ -46,7 +59,11 @@ Npm.depends({
 Package.onTest(function(api) {
     api.use('tinytest');
     api.use('promise');
+    api.use('mongo@1.1.3');
+    api.use('minimongo@1.0.10');
     api.use('biolog:biolog-core');
     api.use('biolog:rules');
-    api.addFiles('rules-tests.js', 'server');
+    api.use( 'livedata', [ 'server' ] ) ;
+    api.addFiles(['test/testPatient.js', 'test/test-rules-js.js'], ['client', 'server']);
+    //api.addFiles('test/test-rules-mongo.js', ['client', 'server']);
 });

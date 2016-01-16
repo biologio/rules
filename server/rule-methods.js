@@ -1,6 +1,5 @@
 Meteor.methods({
-    /* save an rule and associated methods */
-
+    /* save a rule */
     "biolog/saveRule": function (rule) {
         // Make sure the user is logged in before inserting a task
         if (!Meteor.userId()) {
@@ -46,13 +45,41 @@ Meteor.methods({
             return;
         }
         var ruleTool = new biolog.RuleTool(rule);
-        ruleTool.buildExpression();
+        ruleTool.buildJSExpression();
         ruleTool.buildMongoQuery();
         ruleTool.buildElasticSearchQuery();
         //Rules.insert(rule);
         ruleTool.rule.save();
         return ruleTool.rule;
+    },
 
+    /**
+     *  Apply rules to the provided entity
+     *  If entity exists in the DB, merge provided data with that data first
+     *  @entity - the entity to apply rules to.  Merge info from the entity into the specified collection
+     *  @collection - optional.  The collection containing the entity
+     **/
+    "biolog/applyRules": function (entity, collection) {
+        if (!entity || !entity._id) {
+            throw new Meteor.Error(500, 'Error 500: Invalid arguments', 'Must specify the entity to apply rules against');
+        }
+        // Make sure the user is logged in before inserting a task
+        if (!Meteor.userId()) {
+            var message = "User not authenticated";
+            console.error(message);
+            throw new Meteor.Error(403, 'Not permitted', 'User not authenticated');
+        }
+
+        //find the entity
+        var storedEntity = collection.findOne(entity._id);
+        if (!storedEntity) {
+            storedEntity = entity;
+            collection.insert(storedEntity);
+        }
+        //todo merge any entity.data into the stored entity
+
+
+        biolog.Ruler.applyRules(StaticRules, storedEntity);
 
     }
 });

@@ -10,4 +10,4 @@ var oldClause = biolog.RuleUtil.newClause("data['patient/condition'].C0018802.va
 
 var dmClause = biolog.RuleUtil.newClause("data['patient/condition'].C0011847.valid", ">", "0", 1, 0);
 
-var cvaBlock = biolog.RuleUtil.newClause("data['patient/condition']|isValidAndContainsProperty('patient/condition', 'ID4THROMBOEMBOLIC')", ">", "0", 1, 0);
+var cvaBlock = biolog.RuleUtil.newClauseSubproperty("data['patient/condition']", "data['condition/class']", "ID4THROMBOEMBOLIC", "exists", null, 1, 0);
