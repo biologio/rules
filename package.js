@@ -37,16 +37,17 @@ Package.onUse(function(api) {
         'RuleTool.js',
         'work/UnitsOfMeasure.js',
         'work/lifestyleQuestions.js',
-        'work/dietQuestions.js'
+        'work/dietQuestions.js',
+        'RuleTool-js.js'
     ], ['client', 'server']);
 
     api.addFiles([
-        'Ruler-js.js',
-        'RuleTool-js.js'
+        'server/Ruler-js-jexl.js'
     ], ['server']);
 
-
-
+    //api.addFiles([
+    //    'client/Ruler-js-eval.js'
+    //], ['client']);
 });
 
 //    "promise": "7.0.4",
@@ -64,6 +65,6 @@ Package.onTest(function(api) {
     api.use('biolog:biolog-core');
     api.use('biolog:rules');
     api.use( 'livedata', [ 'server' ] ) ;
-    api.addFiles(['test/testPatient.js', 'test/test-rules-js.js'], ['client', 'server']);
-    //api.addFiles('test/test-rules-mongo.js', ['client', 'server']);
+    api.addFiles(['test/testPatient.js'], ['server']);
+    api.addFiles(['test/test-rules-js.js'], ['server']);
 });

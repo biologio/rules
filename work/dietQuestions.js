@@ -2,7 +2,9 @@
  * Created by dd on 1/15/16
  */
 
-dietQuestions = [
+biolog.questions = {};
+
+biolog.questions.Diet = [
     {
         _id: "diet_daily_meat",
         name: "Daily Meat Intake",
@@ -139,9 +141,9 @@ dietQuestions = [
     }
 ];
 
+biolog.rules = {};
 
-
-dietRules = [
+biolog.rules.Diet = [
     {
         _id: "mortality_diet_nutServingsPerWeek_nhanes",
         references: [
@@ -160,13 +162,13 @@ dietRules = [
         output: "health_relativeMortality",
         map: {
             "diet_daily_nuts == 0": 1,
-            "demographics_gender=='female' && 0 < diet_daily_nuts <= 0.1": 0.94,
-            "demographics_gender=='female' && 0.1 < diet_daily_nuts <= 0.2": 0.88,
-            "demographics_gender=='female' && 0.2 < diet_daily_nuts <= 0.6": 0.85,
+            "demographics_gender=='female' && diet_daily_nuts >= 0 && diet_daily_nuts <= 0.1": 0.94,
+            "demographics_gender=='female' && diet_daily_nuts >= 0.1 && diet_daily_nuts <= 0.2": 0.88,
+            "demographics_gender=='female' && diet_daily_nuts >= 0.2 && diet_daily_nuts <= 0.6": 0.85,
             "demographics_gender=='female' && diet_daily_nuts > 0.6": 0.84,
-            "demographics_gender=='male' && 0 < diet_daily_nuts <= 0.1": 0.91,
-            "demographics_gender=='male' && 0.1 < diet_daily_nuts <= 0.2": 0.91,
-            "demographics_gender=='male' && 0.2 < diet_daily_nuts <= 0.6": 0.89,
+            "demographics_gender=='male' && diet_daily_nuts >= 0 && diet_daily_nuts <= 0.1": 0.91,
+            "demographics_gender=='male' && diet_daily_nuts >= 0.1 && diet_daily_nuts <= 0.2": 0.91,
+            "demographics_gender=='male' && diet_daily_nuts >= 0.2 && diet_daily_nuts <= 0.6": 0.89,
             "demographics_gender=='male' && diet_daily_nuts > 0.6": 0.92
         }
     },
@@ -182,12 +184,12 @@ dietRules = [
         output: "health_relative_mortality_rate",
         map: {
             "diet_daily_fruit < 1": 1,
-            "1 <= diet_daily_fruit < 2": 0.9,
-            "2 <= diet_daily_fruit < 3": 0.825,
-            "3 <= diet_daily_fruit < 4": 0.81,
-            "4 <= diet_daily_fruit < 5": 0.805,
-            "5 <= diet_daily_fruit < 6": 0.8,
-            "6 <= diet_daily_fruit": 0.795
+            "diet_daily_fruit >=1 && diet_daily_fruit < 2": 0.9,
+            "diet_daily_fruit >=2 && diet_daily_fruit < 3": 0.825,
+            "diet_daily_fruit >= 3 && diet_daily_fruit < 4": 0.81,
+            "diet_daily_fruit >= 4 && diet_daily_fruit < 5": 0.805,
+            "diet_daily_fruit >= 5 && diet_daily_fruit < 6": 0.8,
+            "diet_daily_fruit >=6": 0.795
         }
     },
     {
@@ -202,14 +204,14 @@ dietRules = [
         output: "health_relativeMortality",
         map: {
             "diet_daily_vegetables < 1": 1,
-            "1 <= diet_daily_vegetables < 2": 0.86,
-            "2 <= diet_daily_vegetables < 3": 0.8,
-            "3 <= diet_daily_vegetables < 4": 0.75,
-            "4 <= diet_daily_vegetables < 5": 0.736,
-            "5 <= diet_daily_vegetables < 6": 0.73,
-            "6 <= diet_daily_vegetables < 6": 0.728,
-            "7 <= diet_daily_vegetables < 6": 0.726,
-            "8 <= diet_daily_vegetables": 0.725
+            "diet_daily_vegetables >= 1 && diet_daily_vegetables < 2": 0.86,
+            "diet_daily_vegetables >= 2 && diet_daily_vegetables < 3": 0.8,
+            "diet_daily_vegetables >= 3 && diet_daily_vegetables < 4": 0.75,
+            "diet_daily_vegetables >= 4 && diet_daily_vegetables < 5": 0.736,
+            "diet_daily_vegetables >= 5 && diet_daily_vegetables < 6": 0.73,
+            "diet_daily_vegetables >= 6 && diet_daily_vegetables < 6": 0.728,
+            "diet_daily_vegetables >= 7 && diet_daily_vegetables < 6": 0.726,
+            "diet_daily_vegetables >= 8 && diet_daily_vegetables": 0.725
         }
     }
 ];

@@ -10,6 +10,7 @@ biolog.RuleTool.buildJSRuleExpression = function(rule, context) {
     if (agg == "sum") agg = "+";
     if (! agg) agg = "&&";
     if (rule.property) expr += biolog.RuleTool.buildJSClauseExpression(rule, context);
+    if (rule.map) expr += biolog.RuleTool.buildJSMapExpression(rule, context);
     if (rule.rules) {
         if (expr) expr += " " + agg + " ";
         expr += biolog.RuleTool.buildJSSubrulesExpression(rule)
@@ -99,7 +100,6 @@ biolog.RuleTool.buildJSClauseExpression = function(rule, context) {
     //expr += " " + rule.operator + " ";
     //if (! rule.pred || ! rule.objects) return "";
 
-
     if (rule.transform) {
         if (typeof rule.transform.true != 'undefined' && typeof rule.transform.true != "null") {
             expr += " ? " + rule.transform.true;
@@ -115,4 +115,27 @@ biolog.RuleTool.buildJSClauseExpression = function(rule, context) {
 };
 
 
+//biolog.RuleTool.buildJSMapExpression = function(rule) {
+//    var mapExpr = "";
+//    for (var condition in rule.map) {
+//        if (mapExpr.length) mapExpr += ": "
+//        var val = rule.map[condition];
+//        mapExpr += "(" + condition + ")? " + val + " ";
+//    }
+//    return mapExpr;
+//};
 
+
+biolog.RuleTool.buildJSMapExpression = function(rule) {
+    var expr = "var val=null;";
+    for (var inputIdx in rule.inputs) {
+        var varName = rule.inputs[inputIdx];
+        expr += "\nvar " + varName + "=context." + varName + ";";
+    }
+    for (var condition in rule.map) {
+        var val = rule.map[condition];
+        expr += " if (" + condition + ") { val=" + val + "; }";
+    }
+    expr += "\nreturn val;"
+    return expr;
+};

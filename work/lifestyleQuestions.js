@@ -1,4 +1,4 @@
-lifestyleQuestions = [
+biolog.LifestyleQuestions = [
     {
         _id: "lifestyle/daily/smoking",
         name: "Daily Tobacco Smoking",

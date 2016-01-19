@@ -73,7 +73,7 @@ Tinytest.add('biolog:rules test rule that assigns a value', function (test) {
         false: 0
     };
     var expr = biolog.RuleTool.buildJSRuleExpression(rule);
-    console.log("Test condition rule: " + expr);
+    //console.log("Test condition rule: " + expr);
     test.isTrue(biolog.Ruler.testExpression(expr, testPatient) === 1, "Expected patient conditions to include C000737");
 });
 
@@ -92,6 +92,7 @@ Tinytest.add('biolog:rules test subproperties of a patient rule', function (test
                         operator: ">",
                         values: 0
                     }
+                    //complex hierarchies not supported yet
                     //{
                     //    property: "data.medication/ingredient",
                     //    rules: [
@@ -113,7 +114,19 @@ Tinytest.add('biolog:rules test subproperties of a patient rule', function (test
     //var ruleTool = new biolog.RuleTool(rule);
     //ruleTool.buildJSRuleJSExpression();
     var expr = biolog.RuleTool.buildJSRuleExpression(rule);
-    console.log("Test condition rule: " + expr);
+    //console.log("Test condition rule: " + expr);
     test.isTrue(biolog.Ruler.testExpression(expr, testPatient), "Expected patient to be on a medicine with ingredient C0023660.");
 });
 
+
+Tinytest.add('biolog:rules test nutrition rules', function (test) {
+    var rule = biolog.rules.Diet[1];
+    var expr = biolog.RuleTool.buildJSRuleExpression(rule);
+    console.log("Test condition rule has expression: " + expr);
+    test.isTrue(biolog.Ruler.applyFunction(expr, {diet_daily_fruit: 0}) === 1, "Expected patient to have RR of death of 0.9");
+    test.isTrue(biolog.Ruler.applyFunction(expr, {diet_daily_fruit: 1}) === 0.9, "Expected patient to have RR of death of 0.9");
+    test.isTrue(biolog.Ruler.applyFunction(expr, {diet_daily_fruit: 1.99999}) === 0.9, "Expected patient to have RR of death of 0.9");
+    test.isTrue(biolog.Ruler.applyFunction(expr, {diet_daily_fruit: 2}) === 0.825, "Expected patient to have RR of death of 0.9");
+    test.isTrue(biolog.Ruler.applyFunction(expr, {diet_daily_fruit: 6.77777}) === 0.795, "Expected patient to have RR of death of 0.9");
+    test.isTrue(biolog.Ruler.applyFunction(expr, {diet_daily_fruit: 99999}) === 0.795, "Expected patient to have RR of death of 0.9");
+});
