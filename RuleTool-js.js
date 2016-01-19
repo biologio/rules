@@ -2,6 +2,15 @@
  * Created by dd on 1/15/15.
  */
 
+//test a rule expression against the context
+biolog.RuleTool.applyFunction = function(expr, context) {
+    //console.log("applyFunction: context=", context);
+    var fn = new Function("context", expr);
+    var result = fn(context);
+    //console.log("applyFunction: result=", result);
+    return result;
+};
+
 biolog.RuleTool.buildJSRuleExpression = function(rule, context) {
     var expr = "";
     var agg = rule.aggregate;

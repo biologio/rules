@@ -41,9 +41,9 @@ Package.onUse(function(api) {
         'RuleTool-js.js'
     ], ['client', 'server']);
 
-    api.addFiles([
-        'server/Ruler-js-jexl.js'
-    ], ['server']);
+    //api.addFiles([
+    //    'server/Ruler-js-jexl.js'
+    //], ['server']);
 
     //api.addFiles([
     //    'client/Ruler-js-eval.js'
@@ -65,6 +65,6 @@ Package.onTest(function(api) {
     api.use('biolog:biolog-core');
     api.use('biolog:rules');
     api.use( 'livedata', [ 'server' ] ) ;
-    api.addFiles(['test/testPatient.js'], ['server']);
-    api.addFiles(['test/test-rules-js.js'], ['server']);
+    api.addFiles(['test/testPatient.js'], ['client', 'server']);
+    api.addFiles(['test/test-rules-js.js'], ['client', 'server']);
 });

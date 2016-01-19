@@ -181,7 +181,7 @@ biolog.rules.Diet = [
             ]
         },
         inputs: ["diet_daily_fruit"],
-        output: "health_relative_mortality_rate",
+        output: "health_relativeMortality",
         map: {
             "diet_daily_fruit < 1": 1,
             "diet_daily_fruit >=1 && diet_daily_fruit < 2": 0.9,
