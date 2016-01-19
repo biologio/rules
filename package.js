@@ -1,6 +1,6 @@
 Package.describe({
   name: 'biolog:rules',
-  version: '0.0.2',
+  version: '0.0.3',
   // Brief, one-line summary of the package.
   summary: 'Permits any Meteor application to have rules, governing any kind of behavior of the application.  Defines schema and provides methods for working with rules',
   // URL to the Git repository containing the source code for this package.
@@ -21,12 +21,12 @@ Package.onUse(function(api) {
         ],
         ['client', 'server']);
 
-    api.use([
-            'promise@0.5.1',
-            'npm-container@1.2.0',
-            'meteorhacks:async@1.0.0'
-        ],
-        ['server']);
+    //api.use([
+    //        'promise@0.5.1',
+    //        'npm-container@1.2.0',
+    //        'meteorhacks:async@1.0.0'
+    //    ],
+    //    ['server']);
 
     //api.use([
     //    'deanius:promise@3.1.3'
@@ -52,10 +52,10 @@ Package.onUse(function(api) {
 
 //    "promise": "7.0.4",
 
-Npm.depends({
-    "fibers": "1.0.8",
-    "jexl": "1.1.2"
-});
+//Npm.depends({
+//    "fibers": "1.0.8",
+//    "jexl": "1.1.2"
+//});
 
 Package.onTest(function(api) {
     api.use('tinytest');
