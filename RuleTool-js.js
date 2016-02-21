@@ -4,7 +4,7 @@
 
 //test a rule expression against the context
 biolog.RuleTool.applyFunction = function(expr, context) {
-    //console.log("applyFunction: context=", context);
+    console.log("applyFunction: expr=", expr);
     var fn = new Function("context", expr);
     var result = fn(context);
     //console.log("applyFunction: result=", result);
@@ -138,13 +138,15 @@ biolog.RuleTool.buildJSClauseExpression = function(rule, context) {
 biolog.RuleTool.buildJSMapExpression = function(rule) {
     var expr = "var val=null;";
     for (var inputIdx in rule.inputs) {
-        var varName = rule.inputs[inputIdx];
-        expr += "\nvar " + varName + "=context." + varName + ";";
+        var varName = "x" + inputIdx;
+        var valName = rule.inputs[inputIdx];
+        expr += "\nvar " + varName + "=context." + valName + ";";
     }
     for (var condition in rule.map) {
         var val = rule.map[condition];
         expr += " if (" + condition + ") { val=" + val + "; }";
     }
-    expr += "\nreturn val;"
+    expr += "\nreturn val;";
+    console.log("expr=", expr);
     return expr;
 };

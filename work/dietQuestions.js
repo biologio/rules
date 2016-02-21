@@ -112,6 +112,7 @@ biolog.questions.Diet = [
     },
     {
         _id: "diet_daily_fruit",
+        property: "diet_daily_fruit",
         name: "Daily Fruit Intake",
         short: "Fruit",
         ask: "How many servings of fruit do you eat daily, on average?",
@@ -156,20 +157,20 @@ biolog.rules.Diet = [
             }
         ],
         inputs: [
-            "diet_daily_nuts",
-            "demographics_gender"
+            "diet_dailyIntake.nuts.normVal",
+            "demographics_gender.text"
         ],
         output: "health_relativeMortality",
         map: {
-            "diet_daily_nuts == 0": 1,
-            "demographics_gender=='female' && diet_daily_nuts >= 0 && diet_daily_nuts <= 0.1": 0.94,
-            "demographics_gender=='female' && diet_daily_nuts >= 0.1 && diet_daily_nuts <= 0.2": 0.88,
-            "demographics_gender=='female' && diet_daily_nuts >= 0.2 && diet_daily_nuts <= 0.6": 0.85,
-            "demographics_gender=='female' && diet_daily_nuts > 0.6": 0.84,
-            "demographics_gender=='male' && diet_daily_nuts >= 0 && diet_daily_nuts <= 0.1": 0.91,
-            "demographics_gender=='male' && diet_daily_nuts >= 0.1 && diet_daily_nuts <= 0.2": 0.91,
-            "demographics_gender=='male' && diet_daily_nuts >= 0.2 && diet_daily_nuts <= 0.6": 0.89,
-            "demographics_gender=='male' && diet_daily_nuts > 0.6": 0.92
+            "x0 == 0": 1,
+            "x1=='female' && x0 >= 0 && x0 <= 0.1": 0.94,
+            "x1=='female' && x0 >= 0.1 && x0 <= 0.2": 0.88,
+            "x1=='female' && x0 >= 0.2 && x0 <= 0.6": 0.85,
+            "x1=='female' && x0 > 0.6": 0.84,
+            "x1=='male' && x0 >= 0 && x0 <= 0.1": 0.91,
+            "x1=='male' && x0 >= 0.1 && x0 <= 0.2": 0.91,
+            "x1=='male' && x0 >= 0.2 && x0 <= 0.6": 0.89,
+            "x1=='male' && x0 > 0.6": 0.92
         }
     },
     {
@@ -180,16 +181,16 @@ biolog.rules.Diet = [
                 "http://www.bmj.com/content/bmj/suppl/2014/07/29/bmj.g4490.DC1/wanx018915.ww2_default.pdf"
             ]
         },
-        inputs: ["diet_daily_fruit"],
+        inputs: ["diet_dailyIntake.fruit.normVal"],
         output: "health_relativeMortality",
         map: {
-            "diet_daily_fruit < 1": 1,
-            "diet_daily_fruit >=1 && diet_daily_fruit < 2": 0.9,
-            "diet_daily_fruit >=2 && diet_daily_fruit < 3": 0.825,
-            "diet_daily_fruit >= 3 && diet_daily_fruit < 4": 0.81,
-            "diet_daily_fruit >= 4 && diet_daily_fruit < 5": 0.805,
-            "diet_daily_fruit >= 5 && diet_daily_fruit < 6": 0.8,
-            "diet_daily_fruit >=6": 0.795
+            "x0 < 1": 1,
+            "x0 >=1 && x0 < 2": 0.9,
+            "x0 >=2 && x0 < 3": 0.825,
+            "x0 >= 3 && x0 < 4": 0.81,
+            "x0 >= 4 && x0 < 5": 0.805,
+            "x0 >= 5 && x0 < 6": 0.8,
+            "x0 >=6": 0.795
         }
     },
     {
@@ -200,18 +201,18 @@ biolog.rules.Diet = [
                 "http://www.bmj.com/content/bmj/suppl/2014/07/29/bmj.g4490.DC1/wanx018915.ww2_default.pdf"
             ]
         },
-        inputs: ["diet_daily_vegetables"],
+        inputs: ["diet_dailyIntake.vegetables.normVal"],
         output: "health_relativeMortality",
         map: {
-            "diet_daily_vegetables < 1": 1,
-            "diet_daily_vegetables >= 1 && diet_daily_vegetables < 2": 0.86,
-            "diet_daily_vegetables >= 2 && diet_daily_vegetables < 3": 0.8,
-            "diet_daily_vegetables >= 3 && diet_daily_vegetables < 4": 0.75,
-            "diet_daily_vegetables >= 4 && diet_daily_vegetables < 5": 0.736,
-            "diet_daily_vegetables >= 5 && diet_daily_vegetables < 6": 0.73,
-            "diet_daily_vegetables >= 6 && diet_daily_vegetables < 6": 0.728,
-            "diet_daily_vegetables >= 7 && diet_daily_vegetables < 6": 0.726,
-            "diet_daily_vegetables >= 8 && diet_daily_vegetables": 0.725
+            "x0 < 1": 1,
+            "x0 >= 1 && x0 < 2": 0.86,
+            "x0 >= 2 && x0 < 3": 0.8,
+            "x0 >= 3 && x0 < 4": 0.75,
+            "x0 >= 4 && x0 < 5": 0.736,
+            "x0 >= 5 && x0 < 6": 0.73,
+            "x0 >= 6 && x0 < 6": 0.728,
+            "x0 >= 7 && x0 < 6": 0.726,
+            "x0 >= 8 && x0": 0.725
         }
     }
 ];

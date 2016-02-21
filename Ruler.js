@@ -22,12 +22,17 @@ biolog.Ruler.prototype.applyRules = function(context) {
     for (var ri in this.rules) {
         var rule = this.rules[ri];
         var fn = this.functions[ri];
-        var result = fn(context);
-        if (!result) continue;
-        results.push({
-            rule: rule,
-            result: result
-        });
-        return results;
+        try {
+            var result = fn(context);
+            if (!result) continue;
+            results.push({
+                rule: rule,
+                result: result
+            });
+            return results;
+        } catch (err) {
+            //unable to eval.  continue
+        }
+
     }
 };
