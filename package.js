@@ -1,6 +1,6 @@
 Package.describe({
   name: 'biolog:rules',
-  version: '0.0.3',
+  version: '0.0.4',
   // Brief, one-line summary of the package.
   summary: 'Permits any Meteor application to have rules, governing any kind of behavior of the application.  Defines schema and provides methods for working with rules',
   // URL to the Git repository containing the source code for this package.
